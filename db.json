@@ -1,0 +1,36 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "mor",
+        "email": "mo700@gmail.com"
+        
+      },
+      {
+        "id": 2,
+        "name": "ndiaye",
+        "email": "nd700@gmail.com"
+        
+      },
+      {
+        "id": 3,
+        "name": "diallo",
+        "email": "dl700@gmail.com"
+        
+      },
+      {
+        "id": 4,
+        "name": "barry",
+        "email": "ba700@gmail.com"
+        
+      },
+      {
+        "id": 5,
+        "name": "saliou",
+        "email": "saliou700@gmail.com"
+        
+      }
+    ]
+  }
+  
+  

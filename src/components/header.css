@@ -1,0 +1,142 @@
+/* Add this to a separate CSS file, like Header.css, and import it in your Header component */
+
+/* Style de base du header */
+.header {
+    background-color:#19153b;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu li {
+    margin-left: 20px;
+}
+
+.main-menu li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.main-menu li a.active,
+.main-menu li a:hover {
+    background-color: #131b5e;
+    border-radius: 4px;
+}
+
+.btn {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #005f73;
+}
+
+/* Masquer la case à cocher */
+.check {
+    display: none;
+}
+
+/* Styles pour le bouton menu (burger) */
+.checkbtn {
+    font-size: 30px;
+    color: #fff;
+    display: none;
+    cursor: pointer;
+}
+
+/* Styles responsives */
+@media (max-width: 858px) {
+    .main-menu {
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: #333;
+        flex-direction: column;
+        align-items: center;
+        transition: left 0.3s ease;
+        z-index: 1;
+    }
+
+    /* Afficher le menu lorsque la checkbox est cochée */
+    .check:checked ~ .container .main-menu {
+        left: 0;
+    }
+
+    /* Afficher l'icône du menu (burger) */
+    .checkbtn {
+        display: block;
+    }
+
+    .main-menu li {
+        margin: 20px 0;
+    }
+}
+
+
+
+/* Style du bouton de connexion dans la barre de menu */
+.menu-button .btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* Changer la couleur lors du survol */
+.menu-button .btn:hover {
+    background-color: #005f73;
+    color: #fff;
+}
+
+/* Ajuster l'affichage sur les petits écrans */
+@media (max-width: 858px) {
+    .main-menu li {
+        margin: 20px 0;
+    }
+
+    .menu-button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}

@@ -1,0 +1,65 @@
+.message {
+    margin-left: 20%;
+    margin-right: 25%;
+}
+
+
+
+
+.container-jumbo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.jumbo-image {
+    padding-top: 5%;
+    width: 50%;
+    margin-left: 5%;
+    
+
+    
+}
+
+.container-jumbo .jumbo-title {
+    margin-left: 10%;
+    width: 50%;
+    font-size: px;
+    font-weight: 800;
+    color: rgb(3, 3, 87);
+}
+
+.jumbo-title p{
+    font-weight: 200;
+    color: rgba(rgb(44, 241, 248), rgb(217, 8, 224), blue, alpha);
+}
+
+.container-jumbo p {
+    margin-left: 2%;
+}
+
+
+
+
+.message-list {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+
+
+}
+
+.message-item {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+
+}
+
+.message-input input {
+    padding: 5px;
+    margin-right: 5px;
+}

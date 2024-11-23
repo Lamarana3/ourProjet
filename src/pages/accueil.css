@@ -1,0 +1,159 @@
+.container-jumbo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.jumbo-image {
+    padding-top: 5%;
+    width: 100%;
+    margin-left: 5%;
+    
+
+    
+}
+
+.jumbo-image1 {
+    display: flex;
+    padding-top: 5%;
+    width: 100%;
+    margin-left: 5%;
+    animation-duration: 10s;
+    animation-name: mesImages;
+    animation-iteration-count: infinite;
+}
+
+@keyframes mesImages{
+    0%{
+        transform: translateX(0);
+
+    }
+    25%{
+        transform: translateX(-65%);
+    }
+    50%{
+        transform: translateX(-130%);
+    }
+    75%{
+        transform: translateX(-195%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+.caroussel{
+    width: 65%;
+    overflow: hidden;
+}
+
+
+.container-jumbo .jumbo-title {
+    margin-left: 10%;
+    width: 50%;
+    font-size: px;
+    font-weight: 800;
+    color: rgb(3, 3, 87);
+}
+
+.jumbo-title p{
+    font-weight: 200;
+    color: rgba(rgb(44, 241, 248), rgb(217, 8, 224), blue, alpha);
+}
+
+.container-jumbo p {
+    margin-left: 2%;
+}
+
+.title1{
+    font-size: 70px;
+}
+
+.section {
+    padding: 60px 0;
+    background-color: #343a40;
+}
+
+.hero-one {
+    background-color: #e9eeee;
+
+}
+
+.section-dark {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.section-title {
+    margin-left: 40%;
+    margin-right: 25%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    color: rgb(3, 3, 87);
+    
+}
+
+.section-title1 {
+    margin-left: 40%;
+    margin-right: 25%;
+    margin-bottom: 5%;
+    color: rgb(3, 3, 87);
+ 
+}
+
+.section-title1 h2 {
+    margin-top: 10%;
+}
+
+.section-white {
+    background-color: #fff;
+    color: rgb(3, 3, 87);
+}
+
+/* Work elements styling */
+.section-work {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.works-element {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1 1 45%;
+    margin-bottom: 20px;
+}
+
+.works-element img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.works-description {
+    margin-top: 15px;
+}
+
+.works-description h3 {
+    font-size: 24px;
+}
+
+.works-description a {
+    color: rgb(39, 39, 252);
+    text-decoration: none;
+}
+
+.hero-one-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.hero-texte {
+    width: 100%;
+    margin-top: 2%;
+    margin-left: 10%;
+
+}
