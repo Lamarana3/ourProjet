@@ -1,50 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const CreerFiliere = () => {
     const [competence, setCompetence] = useState('');
     const [name, setName] = useState('');
-    const [formateurs, setFormateurs] = useState([]);  
-    const [selectedFormateur, setSelectedFormateur] = useState('');  
+    const [formateurs, setFormateurs] = useState([]);
+    const [selectedFormateur, setSelectedFormateur] = useState('');
 
-    
     useEffect(() => {
-        
-        axios.get('http://localhost:8000/api/formateurs')
-            .then(response => {
-                
-                setFormateurs(response.data);
+        axios
+            .get('http://localhost:8000/api/formateurs')
+            .then((response) => {
+                setFormateurs(response.data); 
             })
-            .catch(error => {
-                console.error('Erreur lors de la récupération des formateurs:', error);
+            .catch((error) => {
+                console.error('Erreur lors de la récupération des formateurs :', error);
+                alert('Impossible de charger la liste des formateurs.');
             });
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        
         const data = {
             name,
             competence,
-            formateur_id: selectedFormateur, 
+            formateur_id: selectedFormateur,
         };
 
-        
-        axios.post('http://localhost:8000/api/filieres', data)
-            .then(response => {
-                alert('Filière créée avec succès!');
-                
+        axios
+            .post('http://localhost:8000/api/filieres', data)
+            .then((response) => {
+                alert('Filière créée avec succès !');
+                setName(''); 
+                setCompetence('');
+                setSelectedFormateur('');
             })
-            .catch(error => {
-                console.error('Erreur lors de la création de la filière:', error);
+            .catch((error) => {
+                console.error('Erreur lors de la création de la filière :', error);
+                alert('Une erreur est survenue. Vérifiez vos données.');
             });
     };
 
     return (
-        <div className='formulaire'>
-            <Link to="#" className='btn btn-primary'>Retour</Link>
+        <div className="formulaire">
+            <Link to="#" className="btn btn-primary">
+                Retour
+            </Link>
             <form onSubmit={handleSubmit} style={styles.form}>
                 <h1 style={styles.title}>Créer une filière</h1>
 
@@ -74,20 +77,22 @@ const CreerFiliere = () => {
                     <label style={styles.label}>Responsable</label>
                     <select
                         value={selectedFormateur}
-                        onChange={(e) => setSelectedFormateur(e.target.value)}  
+                        onChange={(e) => setSelectedFormateur(e.target.value)}
                         required
                         style={styles.input}
                     >
                         <option value="">Sélectionner un formateur</option>
-                        {formateurs.map(formateur => (
+                        {formateurs.map((formateur) => (
                             <option key={formateur.id} value={formateur.id}>
-                                {formateur.name} 
+                                {formateur.name}
                             </option>
                         ))}
                     </select>
                 </div>
 
-                <button type="submit" className='btn btn-primary'>Créer filière</button>
+                <button type="submit" className="btn btn-primary">
+                    Créer filière
+                </button>
             </form>
         </div>
     );

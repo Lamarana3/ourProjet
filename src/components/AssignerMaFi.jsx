@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 const AssignerMaFi = () => {
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
 
-  
   useEffect(() => {
+    
     axios
-      .get('http://localhost:8000/api/users') // Remplacez par l'URL  de backend Laravel
+      .get('http://localhost:8000/api/users')
       .then((response) => {
         setUsers(response.data); 
       })
@@ -17,18 +17,20 @@ const AssignerMaFi = () => {
       });
   }, []);
 
+  
   const assignerMatiereFiliere = (userId) => {
     axios
-      .post(`http://localhost:8000/api/assigner`, {
+      .post('http://localhost:8000/api/assigner', {
         user_id: userId,
         matiere: 'React', 
-        filiere: 'DFE', 
+        filiere: 'DFE',   
       })
       .then((response) => {
         alert('Matière/Filière assignée avec succès !');
       })
       .catch((error) => {
         console.error('Erreur lors de l’assignation :', error);
+        alert('Une erreur est survenue lors de l’assignation.');
       });
   };
 
@@ -50,7 +52,7 @@ const AssignerMaFi = () => {
               {user.name} ({user.email})
             </Link>
             <button
-              onClick={() => assignerMatiereFiliere(user.id)}
+              onClick={() => assignerMatiereFiliere(user.id)} 
               className="btn btn-secondary"
             >
               Assigner

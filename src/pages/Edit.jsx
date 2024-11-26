@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import api from '../api/axios'; 
 
 const Edit = () => {
     const { id } = useParams();
     const [data, setData] = useState({
         id: id,
-        name: 'Nom par défaut', // Remplacez par des valeurs par défaut
-        email: 'email@example.com'
+        name: '',
+        email: ''
     });
     const navigate = useNavigate();
 
-    // Simulation d'un chargement de données sans backend
+    
     useEffect(() => {
-        const fetchedData = {
-            id: id,
-            name: 'Nom par défaut',
-            email: 'email@example.com'
-        };
-        setData(fetchedData);
+        api.get(`/users/${id}`)
+            .then((response) => {
+                setData(response.data.user); 
+            })
+            .catch((error) => {
+                console.error("Erreur lors du chargement de l'utilisateur:", error);
+            });
     }, [id]);
 
+    
     function handleSubmit(event) {
         event.preventDefault();
-        // Simuler une mise à jour réussie sans appel API
-        alert('Données mises à jour avec succès !');
-        navigate('/');
+
+    
+        api.put(`/users/${id}`, data)
+            .then((response) => {
+                alert('Données mises à jour avec succès!');
+                navigate('/'); 
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la mise à jour :", error);
+                alert('Une erreur est survenue lors de la mise à jour.');
+            });
     }
 
     return (
@@ -56,7 +67,7 @@ const Edit = () => {
                         />
                     </div>
                     <br />
-                    <button className='btn btn-info'>Mettre à jour</button>
+                    <button type="submit" className='btn btn-info'>Mettre à jour</button>
                 </form>
             </div>
         </div>
@@ -64,3 +75,4 @@ const Edit = () => {
 };
 
 export default Edit;
+

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-import api from '../api'; 
+import api from '../api/axios'; 
 
 const Administrateur = () => {
     const [fiches, setFiches] = useState([]);
@@ -9,55 +9,25 @@ const Administrateur = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        
+        // cette methode permet de recuperer les fiches soumises
         api.get('/fiches')
             .then((response) => {
-                setFiches(response.data); 
+                setFiches(response.data);
             })
             .catch((error) => {
-                setError("Erreur lors du chargement des fiches.");
+                setError('Erreur lors du chargement des fiches.');
                 console.error(error);
             });
 
-        
+        //  pour recuperer la liste des formateurs
         api.get('/formateurs')
             .then((response) => {
-                setFormateurs(response.data); 
+                setFormateurs(response.data);
             })
             .catch((error) => {
-                setError("Erreur lors du chargement des formateurs.");
+                setError('Erreur lors du chargement des formateurs.');
                 console.error(error);
             });
-
-            
-        api.get('/formateurs')
-        .then((response) => {
-            setFormateurs(response.data); 
-        })
-        .catch((error) => {
-            setError("Erreur lors du chargement des formateurs.");
-            console.error(error);
-        });
-
-        
-        api.get('/formateurs')
-            .then((response) => {
-                setFormateurs(response.data); 
-            })
-            .catch((error) => {
-                setError("Erreur lors du chargement des formateurs.");
-                console.error(error);
-            });
-
-            
-        api.get('/formateurs')
-        .then((response) => {
-            setFormateurs(response.data); 
-        })
-        .catch((error) => {
-            setError("Erreur lors du chargement des formateurs.");
-            console.error(error);
-        });
     }, []);
 
     return (
@@ -90,34 +60,6 @@ const Administrateur = () => {
                     </ul>
 
                     <h2>Formateurs</h2>
-                    <ul>
-                        {formateurs.map((formateur) => (
-                            <li key={formateur.id}>{formateur.nom} - {formateur.email}</li>
-                        ))}
-                    </ul>
-
-                    <h2>Creer utilisateur</h2>
-                    <ul>
-                        {formateurs.map((formateur) => (
-                            <li key={formateur.id}>{formateur.nom} - {formateur.email}</li>
-                        ))}
-                    </ul>
-
-                    <h2>creer filiere</h2>
-                    <ul>
-                        {formateurs.map((formateur) => (
-                            <li key={formateur.id}>{formateur.nom} - {formateur.email}</li>
-                        ))}
-                    </ul>
-
-                    <h2>creer matier</h2>
-                    <ul>
-                        {formateurs.map((formateur) => (
-                            <li key={formateur.id}>{formateur.nom} - {formateur.email}</li>
-                        ))}
-                    </ul>
-
-                    <h2>Assignation</h2>
                     <ul>
                         {formateurs.map((formateur) => (
                             <li key={formateur.id}>{formateur.nom} - {formateur.email}</li>

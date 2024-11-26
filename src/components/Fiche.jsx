@@ -1,40 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { BiListMinus } from 'react-icons/bi';
 import { Link, useParams } from 'react-router-dom';
-
 import axios from 'axios';
 
 const Fiche = () => {
   const { id } = useParams(); 
   const [fiche, setFiche] = useState(null); 
-  const [competence, setCompetence] = useState('');
   const [message, setMessage] = useState(''); 
   const [showMessageForm, setShowMessageForm] = useState(false);
 
   useEffect(() => {
-    
-    axios.get(`http://localhost:8000/api/fiche/${id}`) // L'URL de  backend
+    axios.get(`http://localhost:8000/api/fiche/${id}`)
       .then(response => {
-        setFiche(response.data); 
+        setFiche(response.data);
       })
       .catch(error => {
         console.error('Erreur lors de la récupération de la fiche:', error);
       });
-  }, [id]); 
+  }, [id]);
 
-  const handleSubmitMessage = (e) => {
+  const handleSubmitMessage = async (e) => {
     e.preventDefault();
-    
-    console.log('Message envoyé:', message);
-    setMessage(''); 
+
+    try {
+      const response = await axios.post(`http://localhost:8000/api/fiche/${id}/message`, {
+        message: message,
+      });
+
+      alert(response.data.success);
+      setMessage(''); 
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message :', error);
+      alert('Une erreur est survenue, veuillez réessayer.');
+    }
   };
 
   const handleToggleMessageForm = () => {
-    setShowMessageForm(!showMessageForm); 
+    setShowMessageForm(!showMessageForm);
   };
 
   if (!fiche) {
-    return <div>Chargement...</div>; 
+    return <div>Chargement...</div>;
   }
 
   return (
@@ -63,12 +69,10 @@ const Fiche = () => {
         </div>
       </div>
 
-      
       <Link to="#" className="btn btn-primary" onClick={handleToggleMessageForm}>
         {showMessageForm ? "Masquer le formulaire" : "Rédiger un message"}
       </Link>
 
-    
       {showMessageForm && (
         <div className="message-section">
           <h3 className="message-title">Rédiger un message</h3>
@@ -86,7 +90,6 @@ const Fiche = () => {
         </div>
       )}
 
-      
       <Link to="/send" className="btn btn-primary">Message</Link>
       <Link to="/form" className="btn btn-primary">Modifier</Link>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import axios from 'axios';
+import api from '../api/axios'; 
 
 const FicheFiliere = () => {
     const [columns] = useState([
@@ -14,12 +14,12 @@ const FicheFiliere = () => {
         "Travaux Pratiques"
     ]);
 
-    const [records, setRecords] = useState([]); 
+    const [records, setRecords] = useState([]);
     const [error, setError] = useState(null);
 
     
     useEffect(() => {
-        axios.get('http://localhost:8000/api/fiches-filiere') 
+        api.get('/fiches-filiere')
             .then((response) => {
                 setRecords(response.data);
             })
@@ -27,7 +27,19 @@ const FicheFiliere = () => {
                 console.error("Erreur lors de la récupération des données :", err);
                 setError("Impossible de charger les données. Veuillez réessayer.");
             });
-    }, []); // [] pour exécuter seulement au montage
+    }, []);
+
+    
+    const handleDelete = (id) => {
+        api.delete(`/fiches-filiere/${id}`)
+            .then(() => {
+                setRecords(records.filter(record => record.id !== id));
+            })
+            .catch((err) => {
+                console.error("Erreur lors de la suppression :", err);
+                setError("Impossible de supprimer cette fiche. Veuillez réessayer.");
+            });
+    };
 
     return (
         <div className='page' style={styles.page}>
@@ -59,11 +71,17 @@ const FicheFiliere = () => {
                                 <td>{d.matiere}</td>
                                 <td>{d.volumeHoraire}</td>
                                 <td>{d.elementContenu}</td>
-                                <td>{d.coursM}</td>
-                                <td>{d.travauxD}</td>
-                                <td>{d.travauxP}</td>
+                                <td>{d.coursM ? "Oui" : "Non"}</td>
+                                <td>{d.travauxD ? "Oui" : "Non"}</td>
+                                <td>{d.travauxP ? "Oui" : "Non"}</td>
                                 <td>
-                                    <button className='btn btn-sm btn-danger' style={styles.deleteButton}>Supprimer</button>
+                                    <button
+                                        className='btn btn-sm btn-danger'
+                                        style={styles.deleteButton}
+                                        onClick={() => handleDelete(d.id)}
+                                    >
+                                        Supprimer
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -128,4 +146,3 @@ const styles = {
 };
 
 export default FicheFiliere;
-

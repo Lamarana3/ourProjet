@@ -1,20 +1,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../api'; 
+import api from '../api/axios'; 
 import Header from '../components/Header';
 
 const BoardFiliere = () => {
-    const [columns, setColumns] = useState(["id", "Nom de filière", "Responsable"]);
+    const [columns, setColumns] = ["id", "Nom de filière", "Responsable"];
     const [records, setRecords] = useState([]);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    
     useEffect(() => {
+        
         api.get('/filieres')
             .then((response) => {
-                setRecords(response.data); 
+                setRecords(response.data);
             })
             .catch((error) => {
                 setError('Erreur lors du chargement des filières');
@@ -22,7 +22,7 @@ const BoardFiliere = () => {
             });
     }, []);
 
-    // Supprimer une filière
+    
     const handleSubmit = (id) => {
         const conf = window.confirm("Etes-vous sûr de vouloir supprimer ?");
         if (conf) {
@@ -42,12 +42,9 @@ const BoardFiliere = () => {
         <div className="page" style={styles.page}>
             <Header />
             <div style={styles.buttonContainer}>
-                <Link to="/create" style={styles.button}>Retour</Link>
-                <Link to="/create" style={styles.button}>Messages</Link>
+                <Link to="/message" style={styles.button}>Retour</Link>
             </div>
-            
             {error && <p style={styles.errorText}>{error}</p>}
-            
             <table className="table" style={styles.table}>
                 <thead>
                     <tr>
@@ -67,7 +64,7 @@ const BoardFiliere = () => {
                                 <td>
                                     <Link to={`/update/${d.id}`} className='btn btn-sm btn-success' style={styles.actionButton}>Modifier</Link>
                                     <button onClick={() => handleSubmit(d.id)} className='btn btn-sm btn-danger' style={styles.deleteButton}>Supprimer</button>
-                                    <Link to="/detail" className='btn btn-sm btn-info' style={styles.actionButton}>Détails</Link>
+                                    <Link to={`/detail/${d.id}`} className='btn btn-sm btn-info' style={styles.actionButton}>Détails</Link>
                                 </td>
                             </tr>
                         ))

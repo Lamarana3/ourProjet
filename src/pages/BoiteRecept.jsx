@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import axios from 'axios';
+import api from '../api/axios';
 
 const BoiteRecept = () => {
     const [messages, setMessages] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         
-        axios.get('http://localhost:8000/api/messages') 
+        api.get('/messages')
             .then(response => {
                 setMessages(response.data); 
             })
             .catch(error => {
                 console.error("Erreur lors de la récupération des messages:", error);
+                setError("Impossible de charger les messages.");
             });
     }, []);
 
@@ -22,13 +24,14 @@ const BoiteRecept = () => {
             <Header />
             <h1 style={styles.title}>Boîte de Réception</h1>
             <div style={styles.buttonContainer}>
-                <a href="/message">
+                <Link to="/message">
                     <button style={styles.button}>Retour</button>
-                </a>
+                </Link>
             </div>
 
+            {error && <p style={styles.error}>{error}</p>}
+
             <div style={styles.messagesContainer}>
-            
                 {messages.map((message) => (
                     <Link
                         to={`/fiche/${message.id}`} 
@@ -69,6 +72,12 @@ const styles = {
         cursor: 'pointer',
         textDecoration: 'none',
     },
+    error: {
+        textAlign: 'center',
+        color: 'red',
+        fontSize: '18px',
+        marginBottom: '10px',
+    },
     messagesContainer: {
         marginTop: '30px',
         display: 'flex',
@@ -94,4 +103,3 @@ const styles = {
 };
 
 export default BoiteRecept;
-

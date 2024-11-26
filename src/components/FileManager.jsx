@@ -6,7 +6,7 @@ const FileManager = () => {
   const [folders, setFolders] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/folders') // Remplacer par l'URL de votre API
+    axios.get('http://localhost:8000/api/folders') 
       .then(response => {
         setFolders(response.data);
       })

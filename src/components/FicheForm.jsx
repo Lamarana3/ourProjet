@@ -3,25 +3,50 @@ import axios from 'axios';
 
 const FicheForm = () => {
   const [data, setData] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     
-    axios.get('http://localhost:8000/api/filieres') // URL de  backend Laravel
+    axios.get('http://localhost:8000/api/filieres')
       .then(response => {
-        setData(response.data); 
+        setData(response.data);
+        setLoading(false);
       })
       .catch(error => {
-        console.error("Il y a une erreur lors de la récupération des données :", error);
+        console.error("Erreur lors de la récupération des données :", error);
+        setError('Une erreur est survenue lors de la récupération des données.');
+        setLoading(false);
       });
   }, []); 
 
+  if (loading) {
+    return <div>Chargement des données...</div>; 
+  }
+
+  if (error) {
+    return <div style={{ color: 'red' }}>{error}</div>; 
+  }
+
   return (
     <div style={{ padding: '20px' }}>
+      {/* Liens de navigation */}
+      <a href="/message">
+        <button style={{ marginLeft: '20px', marginBottom: '24px' }} className="btn btn-primary">Retour</button>
+      </a>
+      <a href="/boite">
+        <button style={{ marginLeft: '20px', marginBottom: '24px' }} className="btn btn-primary">Vos messages</button>
+      </a>
+      <a href="/">
+        <button style={{
+          marginLeft: '20px',
+          marginBottom: '24px',
+          background: 'white',
+          color: '#19153b',
+        }} className="btn btn-primary">Déconnexion</button>
+      </a>
 
-      <a href="/message"><button style={{ marginLeft: '20px', marginBottom: '24px', }} className="btn btn-primary">Retour</button></a>
-      <a href="/boite"><button style={{ marginLeft: '20px', marginBottom: '24px', }} className="btn btn-primary">Vos message</button></a>
-      <a href="/"><button style={{ marginLeft: '20px', marginBottom: '24px', background: 'white',  color: '#19153b', }} className="btn btn-primary">Déconnexion</button></a>
-
+      {/* Tableau des filières */}
       <table border="1" cellPadding="10" cellSpacing="0">
         <thead>
           <tr>
@@ -50,7 +75,4 @@ const FicheForm = () => {
   );
 };
 
-
-
 export default FicheForm;
-

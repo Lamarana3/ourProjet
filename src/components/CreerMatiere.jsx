@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, /*useHistory */} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CreerMatiere = () => {
     const [competence, setCompetence] = useState('');
     const [name, setName] = useState('');
-    const history = useHistory(); 
+    const navigate = useNavigate(); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             
-            const response = await axios.post('http://localhost:8000/api/matieres', {
+            await axios.post('http://localhost:8000/api/matieres', {
                 name: name,
-                competence: competence
+                competence: competence,
             });
 
-    
             alert('Matière créée avec succès !');
             
             
-            history.push('/listeMatieres');
+            navigate('/listeMatieres');
         } catch (error) {
-            console.error('Erreur lors de la création de la matière:', error);
+            console.error('Erreur lors de la création de la matière :', error);
             alert('Une erreur est survenue, veuillez réessayer.');
         }
     };
 
     return (
-        <div className='formulaire'>
-            <Link to="/listeMatieres" className='btn btn-primary'>Retour</Link>
+        <div className="formulaire">
+            <Link to="/listeMatieres" className="btn btn-primary">
+                Retour
+            </Link>
             <form onSubmit={handleSubmit} style={styles.form}>
                 <h1 style={styles.title}>Créer une matière</h1>
 
@@ -56,7 +57,9 @@ const CreerMatiere = () => {
                     />
                 </div>
 
-                <button type="submit" className='btn btn-primary'>Créer matière</button>
+                <button type="submit" className="btn btn-primary">
+                    Créer matière
+                </button>
             </form>
         </div>
     );

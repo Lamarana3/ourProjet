@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import axios from 'axios';
-import '../loginregister/register.css'; 
+import apiClient from '../api/axios';
+import '../loginregister/register.css';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -9,6 +9,7 @@ const Register = () => {
     const [tel, setTel] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [fonction, setFonction] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -21,14 +22,23 @@ const Register = () => {
             return;
         }
 
-        axios.post('', { name, email, tel, password, password_confirmation: passwordConfirm })
+        
+        apiClient.post('/register', {
+            name,
+            email,
+            tel,
+            password,
+            password_confirmation: passwordConfirm,
+            fonction,
+        })
             .then(() => {
                 setSuccess('Inscription réussie ! Vous pouvez maintenant vous connecter.');
                 setError('');
             })
-            .catch(() => {
+            .catch((err) => {
                 setError('Échec de l\'inscription. Veuillez vérifier vos informations.');
                 setSuccess('');
+                console.error(err);
             });
     };
 
@@ -93,7 +103,12 @@ const Register = () => {
                 </div>
                 <div className="form-group">
                     <label>Fonction:</label>
-                    <select className="form-input">
+                    <select
+                        value={fonction}
+                        onChange={(e) => setFonction(e.target.value)}
+                        className="form-input"
+                        required
+                    >
                         <option value="">Sélectionnez une option</option>
                         <option value="matiere">Matière</option>
                         <option value="filiere">Filière</option>
